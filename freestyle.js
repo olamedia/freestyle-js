@@ -132,6 +132,8 @@ var freestyle = (function(undefined){
 
 	var fetchSupported = "fetch" in window; // else load polyfill
 */
+	var readyCallbacks = [];
+	var isReady = false;
 	var freestyle = {
 		get: function(url, options, resolve, reject){
 			options.method = "GET";
@@ -148,7 +150,7 @@ var freestyle = (function(undefined){
 			});
 		},
 		post: function(url, options, body, resolve, reject){
-			options.method = "GET";
+			options.method = "POST";
 			options.headers || options.headers = {};
 			options.headers["X-Requested-With"] = "XMLHttpRequest";
 			options.credentials = "same-origin";
@@ -182,10 +184,23 @@ var freestyle = (function(undefined){
 		},
 		query: function(selector){
 			return new nodeListWrapper([document.querySelector(selector)]);
+		},
+		ready: function(callback){
+			if (isReady){
+				callback();
+			}else{
+				readyCallbacks.push(callback);
+			}
 		}
 	};
-	
-	
+	var $document = freestyle.wrap(document);
+	$document.on('DOMContentLoaded', function(){
+		isReady = true;
+		for (var i =0; i < readyCallbacks.length; i++){
+			readyCallbacks[i]();
+		}
+		readyCallbacks = [];
+	});
 	
 	
 	
