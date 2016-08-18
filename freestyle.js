@@ -81,6 +81,21 @@ var freestyle = (function(undefined){
 				node.appendChild(textNode);
 			});
 		};
+		self.attr = function(key, value){
+			if (isUndef(value)){
+				if (self.nodes.length>0){
+					return self.nodes[0].getAttribute(key);
+				}
+				return null;
+			}
+			return each(function(node){
+				if (null === value){
+					node.removeAttribute(value);
+				}else{
+					node.setAttribute(key, value);
+				}
+			});
+		};
 		self[Symbol.iterator] = function(){
 			var nextIndex = 0;
 			return {
@@ -98,11 +113,20 @@ var freestyle = (function(undefined){
 	};
 
 	var freestyle = {
-		nodes: function(nodes){
+		wrap: function(nodes){
 			return new nodeListWrapper(nodes);
 		},
 		create: function(tagName){
 			return nodeListWrapper([document.createElement(tagName)]);
+		},
+		id: function(id){
+			return new nodeListWrapper([document.getElementById(id)]);
+		},
+		getTag: function(tagName){
+			return new nodeListWrapper(document.getElementsByTagName(tagName));
+		},
+		getClass: function(className){
+			return new nodeListWrapper(document.getElementsByClassName(className));
 		},
 		queryAll: function(selector){
 			return new nodeListWrapper(document.querySelectorAll(selector));
@@ -121,3 +145,5 @@ var freestyle = (function(undefined){
 	
 	
 })();
+	
+	
