@@ -15,3 +15,14 @@ Similar to jQuery syntax wrapper for vanilla javascript methods.
 
 }(freestyle));
 ```
+* freestyle.query(selector)
+* freestyle.queryAll(selector)
+* freestyle.id(selector)
+
+* attr(name), attr(name, value), attr(name, null)
+* addClass(className)
+* removeClass(className)
+* toggleClass(className)
+* each(function(value, key){})
+* text(), text(text)
+
