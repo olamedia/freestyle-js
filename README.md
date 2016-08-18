@@ -51,13 +51,15 @@ Similar to jQuery syntax wrapper for vanilla javascript methods.
 ### Forms
 * val()
 * serialize()
-## Dimensions
+
+### Dimensions
 * width()
 * height()
 * outerWidth()
 * outerHeight()
 * offset()
 * position()
-## Misc
+
+### Misc
 * html()
 * fix text()
