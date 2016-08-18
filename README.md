@@ -5,7 +5,7 @@ Similar to jQuery syntax wrapper for vanilla javascript methods.
 
 ## Goal
 
-* ~ < 5Kb minified
+* ~ < 5Kb minified (3Kb minified, 1.2Kb gzipped atm - without dimensions and forms support)
 * similar to jQuery method names and behaviour
 * methods can be overloaded if user-agent is not compatible
 
