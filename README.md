@@ -20,19 +20,23 @@ Similar to jQuery syntax wrapper for vanilla javascript methods.
 
 ## freestyle
 
-* query(selector)
-* queryAll(selector)
-* id(selector)
+* nodeListWrapper query(selector)
+* nodeListWrapper queryAll(selector)
+* nodeListWrapper id(selector)
 * ready(callback)
 * get(url, options, resolve, reject) `not frozen`
 * post(url, options, body, resolve, reject) `not frozen`
 
 ## nodeListWrapper
 
-* attr(name), attr(name, value), attr(name, null)
-* addClass(className)
-* removeClass(className)
-* toggleClass(className)
-* each(function(value, key){})
-* text(), text(text)
-* on(eventName, callback, useCapture), off(eventName, callback, useCapture)
+* String attr(name)
+* nodeListWrapper attr(name, value)
+* nodeListWrapper attr(name, null) `remove attribute`
+* nodeListWrapper addClass(className)
+* nodeListWrapper removeClass(className)
+* nodeListWrapper toggleClass(className)
+* nodeListWrapper each(function(value, key){})
+* String text()
+* nodeListWrapper text(text)
+* nodeListWrapper on(eventName, callback, useCapture)
+* nodeListWrapper off(eventName, callback, useCapture)
