@@ -40,3 +40,24 @@ Similar to jQuery syntax wrapper for vanilla javascript methods.
 * nodeListWrapper text(text)
 * nodeListWrapper on(eventName, callback, useCapture)
 * nodeListWrapper off(eventName, callback, useCapture)
+* String style(name)
+* nodeListWrapper style(name, value)
+* show()
+* hide()
+* toggle(state)
+
+## TODO
+
+### Forms
+* val()
+* serialize()
+## Dimensions
+* width()
+* height()
+* outerWidth()
+* outerHeight()
+* offset()
+* position()
+## Misc
+* html()
+* fix text()
