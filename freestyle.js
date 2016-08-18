@@ -137,7 +137,7 @@ var freestyle = (function(undefined){
 	var freestyle = {
 		get: function(url, options, resolve, reject){
 			options.method = "GET";
-			options.headers || options.headers = {};
+			options.headers || (options.headers = {});
 			options.headers["X-Requested-With"] = "XMLHttpRequest";
 			options.credentials = "same-origin";
 			//  body: JSON.stringify(data),
@@ -151,7 +151,7 @@ var freestyle = (function(undefined){
 		},
 		post: function(url, options, body, resolve, reject){
 			options.method = "POST";
-			options.headers || options.headers = {};
+			options.headers || (options.headers = {});
 			options.headers["X-Requested-With"] = "XMLHttpRequest";
 			options.credentials = "same-origin";
 			options.body = body;
@@ -193,7 +193,7 @@ var freestyle = (function(undefined){
 			}
 		}
 	};
-	var $document = freestyle.wrap(document);
+	var $document = freestyle.wrap([document]);
 	$document.on('DOMContentLoaded', function(){
 		isReady = true;
 		for (var i =0; i < readyCallbacks.length; i++){
