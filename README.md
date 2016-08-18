@@ -9,7 +9,7 @@ Similar to jQuery syntax wrapper for vanilla javascript methods.
 
   $.query('#mydiv').append($.queryAll('li').each(function(node, index){
     node.text('index: ' + index);
-  }).detach());
+  }).detach()).append($.create('div').text('Hello, world!'));
 
 
 
