@@ -11,6 +11,16 @@ var freestyle = (function(undefined){
 		return Node.prototype.isPrototypeOf(v);
 	};
 	
+	var util = {
+		computedStyle: function(node, key){
+			var view = node.ownerDocument.defaultView;
+			if (!view || !view.opener){
+				view = window;
+			}
+			var computed = view.getComputedStyle(node); // IE 9+
+			computed.getPropertyValue(key) || computed[key];
+		}
+	};
 
 
 	var nodeListWrapper = function(nodes){
@@ -90,9 +100,24 @@ var freestyle = (function(undefined){
 			}
 			return each(function(node){
 				if (null === value){
-					node.removeAttribute(value);
+					node.removeAttribute(key);
 				}else{
 					node.setAttribute(key, value);
+				}
+			});
+		};
+		self.style = function(key, value){
+			if (isUndef(value)){
+				if (self.nodes.length>0){
+					return self.nodes[0].style[key]?self.nodes[0].style[key]:null;
+				}
+				return null;
+			}
+			return each(function(node){
+				if (null === value){
+					delete node.style[key];
+				}else{
+					node.style[key] = value;
 				}
 			});
 		};
@@ -115,6 +140,30 @@ var freestyle = (function(undefined){
 				       {done: true};
 			   }
 			};
+		};
+		var prevDisplayMode = null;
+		self.hide = function(){
+			return self.toggle(false);
+		};
+		self.show = function(){
+			return self.toggle(true);
+		};
+		self.toggle = function(state){
+			return each(function(node){
+				var attached = true;
+				// TODO util.contains(document, node)
+				var show = (('none' == node.style.display) || (attached && 'none' === util.computedStyle(node, 'display'))) || true === state;
+				if (false === state){
+					show = false;
+				}
+				if (show){
+					node.style.display = node.style.__display?node.style.__display:'block';
+					delete node.style.__display;
+				}else{
+					node.style.__display = node.style.display;
+					node.style.display = 'none';
+				}
+			});
 		};
 		self.dir = function(){
 			console.dir(self.nodes);
