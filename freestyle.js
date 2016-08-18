@@ -20,9 +20,10 @@ var freestyle = (function(undefined){
 			for (var i = 0; i < self.nodes.length; i++){
 				callback(self.nodes[i], i);
 			}
+			return self;
 		};
 		self.each = function(callback){
-			each(function(v, k){
+			return each(function(v, k){
 				callback(new nodeListWrapper([v]), k);
 			});
 		}
@@ -36,22 +37,22 @@ var freestyle = (function(undefined){
 			return new nodeListWrapper(nodes);
 		};
 		self.addClass = function(className){
-			self.each(function(node){
+			return each(function(node){
 				node.classList.add(className);
 			});
 		};
 		self.removeClass = function(className){
-			each(function(node){
+			return each(function(node){
 				node.classList.remove(className);
 			});
 		};
 		self.toggleClass = function(className){
-			each(function(node){
+			return each(function(node){
 				node.classList.toggle(className);
 			});
 		};
 		self.detach = function(){
-			each(function(node){
+			return each(function(node){
 				var parent = node.parentNode;
 				if (parent){
 					parent.removeChild(node);
@@ -59,7 +60,7 @@ var freestyle = (function(undefined){
 			});
 		};
 		self.append = function(nodesWrapper){
-			each(function(parentNode){
+			return each(function(parentNode){
 				nodesWrapper._each(function(node){
 					parentNode.appendChild(node);
 				});
@@ -75,7 +76,7 @@ var freestyle = (function(undefined){
 				});
 				return text;
 			}
-			each(function(node){
+			return each(function(node){
 				var textNode = document.createTextNode(text);
 				node.appendChild(textNode);
 			});
