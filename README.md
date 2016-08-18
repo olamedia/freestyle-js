@@ -3,6 +3,13 @@
 Ready to drop support for IE<10?
 Similar to jQuery syntax wrapper for vanilla javascript methods.
 
+## Goal
+
+* ~ < 5Kb minified
+* similar to jQuery method names and behaviour
+* methods can be overloaded if user-agent is not compatible
+
+## Example
 
 ```js
 (function($){
