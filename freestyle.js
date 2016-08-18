@@ -96,6 +96,16 @@ var freestyle = (function(undefined){
 				}
 			});
 		};
+		self.on = function(eventName, callback, useCapture){
+			return each(function(node){
+				node.addEventListener(eventName, callback, useCapture?useCapture:false);
+			});
+		};
+		self.off = function(eventName, callback, useCapture){
+			return each(function(node){
+				node.removeEventListener(eventName, callback, useCapture?useCapture:false);
+			});
+		};
 		self[Symbol.iterator] = function(){
 			var nextIndex = 0;
 			return {
@@ -111,8 +121,47 @@ var freestyle = (function(undefined){
 			return self;
 		}
 	};
+/*
+	var xhrObject = function() {
+		try {
+			return new XMLHttpRequest();
+		}catch(e){}
+	};
+	var xhrTest = xhrObject();
+	var xhrSupported = !!xhrTest && ("withCredentials" in xhrTest);
 
+	var fetchSupported = "fetch" in window; // else load polyfill
+*/
 	var freestyle = {
+		get: function(url, options, resolve, reject){
+			options.method = "GET";
+			options.headers || options.headers = {};
+			options.headers["X-Requested-With"] = "XMLHttpRequest";
+			options.credentials = "same-origin";
+			//  body: JSON.stringify(data),
+			fetch(url, options).then(function(response) {
+				// handle HTTP response
+				!resolve || resolve(response);
+			}, function(error) {
+				// handle network error
+				!reject || reject(response);
+			});
+		},
+		post: function(url, options, body, resolve, reject){
+			options.method = "GET";
+			options.headers || options.headers = {};
+			options.headers["X-Requested-With"] = "XMLHttpRequest";
+			options.credentials = "same-origin";
+			options.body = body;
+			//  body: JSON.stringify(data),
+			fetch(url, options).then(function(response) {
+				// handle HTTP response
+				!resolve || resolve(response);
+			}, function(error) {
+				// handle network error
+				!reject || reject(response);
+			});
+		},
 		wrap: function(nodes){
 			return new nodeListWrapper(nodes);
 		},
